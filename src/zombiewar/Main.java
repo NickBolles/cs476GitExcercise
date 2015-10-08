@@ -71,10 +71,17 @@ public class Main {
     //      all the zombies are all dead or all the survivors are all dead.
     
     for(ISurvivor survivor: survivors){
+        System.out.println("-------------------------");
         int zombie = (int) Math.floor(Math.random()*zombies.length);
         survivor.attack(zombies[zombie]);
     }
+    for(IZombie zombie: zombies){
+        System.out.println("-------------------------");
+        int survivor = (int) Math.floor(Math.random()*survivors.length);
+        zombie.attack(survivors[survivor]);
+    }
     
+        System.out.println("==========================");
 
     if (allDead(survivors)) {
       System.out.println("None of the survivors made it.");
