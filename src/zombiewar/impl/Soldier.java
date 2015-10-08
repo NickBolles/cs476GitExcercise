@@ -20,12 +20,12 @@ public class Soldier extends Character implements ISurvivor{
 	 * A soldier starts with 100 points of health
 	 */
 	public Soldier() {
-		super(100);
+		super(100, 20);
 	}
 
 	@Override
 	public void attack(IZombie zombie) {
-		zombie.decreaseHealth(10);
+		zombie.decreaseHealth(this.getHit());
 	}
 	
 	

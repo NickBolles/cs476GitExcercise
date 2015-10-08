@@ -15,7 +15,7 @@ public class Tank extends Character implements IZombie{
 	 * A tank starts with 150 points of health
 	 */
 	public Tank() {
-		super(150);
+		super(150, 5);
 	}
 
 	/**
@@ -24,7 +24,7 @@ public class Tank extends Character implements IZombie{
 	 */
 	@Override
 	public void attack(ISurvivor survivor) {
-		survivor.decreaseHealth(20);
+		survivor.decreaseHealth(this.getHit());
 	}
 	
 }
