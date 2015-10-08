@@ -14,8 +14,8 @@ public class Predator extends Character implements IZombie{
 	/**
 	 * A tank starts with 150 points of health
 	 */
-	public Predator() {
-		super(150, 15);
+	public Predator(String name) {
+		super(name, 150, 15);
 	}
 
 	/**
@@ -24,7 +24,9 @@ public class Predator extends Character implements IZombie{
 	 */
 	@Override
 	public void attack(ISurvivor survivor) {
-		survivor.decreaseHealth(this.getHit());
+                Character s = (Character) survivor;
+                System.out.println(this.getName() + " attacking zombie " + s.getName());
+		s.decreaseHealth(this.getHit());
 	}
 	
 }

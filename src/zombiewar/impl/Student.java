@@ -19,13 +19,15 @@ public class Student extends Character implements ISurvivor{
 	/**
 	 * A soldier starts with 100 points of health
 	 */
-	public Student() {
-		super(50, 10);
+	public Student(String name) {
+		super(name, 50, 10);
 	}
 
 	@Override
 	public void attack(IZombie zombie) {
-		zombie.decreaseHealth(this.getHit());
+                Character z = (Character) zombie;
+                System.out.println(this.getName() + " attacking zombie " + z.getName());
+		z.decreaseHealth(this.getHit());
 	}
 	
 	

@@ -14,8 +14,8 @@ public class Tank extends Character implements IZombie{
 	/**
 	 * A tank starts with 150 points of health
 	 */
-	public Tank() {
-		super(150, 5);
+	public Tank(String name) {
+		super(name, 150, 5);
 	}
 
 	/**
@@ -24,7 +24,9 @@ public class Tank extends Character implements IZombie{
 	 */
 	@Override
 	public void attack(ISurvivor survivor) {
-		survivor.decreaseHealth(this.getHit());
+                Character z = (Character) survivor;
+                System.out.println(this.getName() + " attacking zombie " + z.getName());
+		z.decreaseHealth(this.getHit());
 	}
 	
 }

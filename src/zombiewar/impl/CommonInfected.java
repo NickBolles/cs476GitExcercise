@@ -14,8 +14,8 @@ public class CommonInfected extends Character implements IZombie{
 	/**
 	 * A tank starts with 150 points of health
 	 */
-	public CommonInfected() {
-		super(150, 10);
+	public CommonInfected(String name) {
+		super(name, 150, 10);
 	}
 
 	/**

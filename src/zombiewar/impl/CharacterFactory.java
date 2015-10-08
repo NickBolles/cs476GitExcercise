@@ -25,10 +25,15 @@ public class CharacterFactory implements ICharacterFactory{
    */
   
   @Override
-  public ICharacter make(String type) {
+  public ICharacter make(String type, String name) {
     switch(type){
-      case "soldier"  : return new Soldier();
-      case "tank"     : return new Tank();
+      case "soldier"  : return new Soldier(name);
+      case "child"  : return new Child(name);
+      case "student"  : return new Student(name);
+      case "teacher"  : return new Teacher(name);
+      case "common"  : return new CommonInfected(name);
+      case "tank"     : return new Tank(name);          
+      case "predator"  : return new Predator(name);
     }
     return null;
   }
