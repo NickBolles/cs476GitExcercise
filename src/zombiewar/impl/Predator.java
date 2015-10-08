@@ -25,7 +25,7 @@ public class Predator extends Character implements IZombie{
 	@Override
 	public void attack(ISurvivor survivor) {
                 Character s = (Character) survivor;
-                System.out.println(this.getName() + " attacking zombie " + s.getName());
+                System.out.println(this.getName() + " attacking " + s.getName());
 		s.decreaseHealth(this.getHit());
 	}
 	

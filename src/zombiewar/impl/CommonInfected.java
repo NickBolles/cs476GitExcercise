@@ -24,7 +24,9 @@ public class CommonInfected extends Character implements IZombie{
 	 */
 	@Override
 	public void attack(ISurvivor survivor) {
-		survivor.decreaseHealth(this.getHit());
+                Character s = (Character) survivor;
+                System.out.println(this.getName() + " attacking " + s.getName());
+		s.decreaseHealth(this.getHit());
 	}
 	
 }

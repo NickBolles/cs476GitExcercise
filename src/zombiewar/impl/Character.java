@@ -1,6 +1,7 @@
 package zombiewar.impl;
 
 import zombiewar.intf.ICharacter;
+import zombiewar.intf.ISurvivor;
 
 public abstract class Character implements ICharacter{
 	
@@ -24,15 +25,16 @@ public abstract class Character implements ICharacter{
         }
 	@Override
 	public void decreaseHealth(int increment) {
-                System.out.print(this.getName() + " takes " + increment + " damage");
+                System.out.println(this.getName() + " takes " + increment + " damage");
 		health-=increment;
-                System.out.print(this.getName() + "'s health is now " + health);
+                System.out.println(this.getName() + "'s health is now " + health);
 	}
 
 	@Override
 	public boolean isAlive() {
 		return (health > 0);
 	}
+        
 	
 	
 }

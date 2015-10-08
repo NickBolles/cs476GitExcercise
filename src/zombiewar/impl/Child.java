@@ -26,7 +26,7 @@ public class Child extends Character implements ISurvivor{
 	@Override
 	public void attack(IZombie zombie) {
                 Character z = (Character) zombie;
-                System.out.println(this.getName() + " attacking zombie " + z.getName());
+                System.out.println(this.getName() + " attacking " + z.getName());
 		z.decreaseHealth(this.getHit());
 	}
 	

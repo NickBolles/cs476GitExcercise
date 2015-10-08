@@ -25,7 +25,7 @@ public class Tank extends Character implements IZombie{
 	@Override
 	public void attack(ISurvivor survivor) {
                 Character z = (Character) survivor;
-                System.out.println(this.getName() + " attacking zombie " + z.getName());
+                System.out.println(this.getName() + " attacking " + z.getName());
 		z.decreaseHealth(this.getHit());
 	}
 	
