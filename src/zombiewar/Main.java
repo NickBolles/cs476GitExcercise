@@ -14,9 +14,9 @@ import zombiewar.intf.IZombie;
  * @author thaoc
  */
 public class Main {
-  
+
   private static final ICharacterFactory factory = CharacterFactory.instance;
-  
+
   public static IZombie[] randomZombies() {
     int numZombies = (int) (Math.random() * 10) + 1;
     IZombie[] zombies = new IZombie[numZombies];
@@ -67,49 +67,63 @@ public class Main {
 
     System.out.println("We have " + survivors.length + " survivors trying to make it to safety.");
     System.out.println("But there are " + zombies.length + " zombies waiting for them.");
-    
+
     boolean quit = false;
     while(!quit){        
         kills.clear();
         for(ISurvivor survivor: survivors){
             System.out.println("-------------------------");
-            if (!allDead(zombies)){
-                boolean valid = false;
-                int zombie = -1;
-                //This is a pretty stupid way of doing it...basically just 
-                //randomly pokes at the array until it finds one that isnt dead,
-                //maybe we should just get the first one that is alive
-                while(!valid){
-                    zombie = (int) Math.floor(Math.random()*zombies.length);
-                    if (zombies[zombie].isAlive()){
-                        valid = true;
+            //The survivor has to be alive to attack
+            if (survivor.isAlive()){
+                if (!allDead(zombies)){
+                    boolean valid = false;
+                    int zombie = -1;
+                    //This is a pretty stupid way of doing it...basically just 
+                    //randomly pokes at the array until it finds one that isnt dead,
+                    //maybe we should just get the first one that is alive
+                    while(!valid){
+                        zombie = (int) Math.floor(Math.random()*zombies.length);
+                        if (zombies[zombie].isAlive()){
+                            valid = true;
+                        }
                     }
+                    survivor.attack(zombies[zombie]);
+                    if (!zombies[zombie].isAlive()){
+                        kills.add( ((Character) survivor).getName() + " killed " + ((Character) zombies[zombie]).getName() + "!");
+                    }
+                }else{
+                    System.out.println("All Zombies are dead! " + ((Character) survivor).getName() + " has nothing to attack!");
                 }
-                survivor.attack(zombies[zombie]);
-                if (!zombies[zombie].isAlive()){
-                    kills.add( ((Character) survivor).getName() + " killed " + ((Character) zombies[zombie]).getName() + "!");
-                }
+            }else{
+                System.out.println(((Character) survivor).getName() + " is Dead, so they cannot attack");
             }
         }
         for(IZombie zombie: zombies){
             System.out.println("-------------------------");
-            if (!allDead(zombies)){
-                boolean valid = false;
-                int survivor = -1;
-                //This is a pretty stupid way of doing it...basically just 
-                //randomly pokes at the array until it finds one that isnt dead,
-                //maybe we should just get the first one that is alive
-                while(!valid){
-                    survivor = (int) Math.floor(Math.random()*survivors.length);
-                    if (survivors[survivor].isAlive()){
-                        valid = true;
+            //The zombie has to be alive to attack
+            if (zombie.isAlive()){
+                if (!allDead(survivors)){
+                    boolean valid = false;
+                    int survivor = -1;
+                    //This is a pretty stupid way of doing it...basically just 
+                    //randomly pokes at the array until it finds one that isnt dead,
+                    //maybe we should just get the first one that is alive
+                    while(!valid){
+                        survivor = (int) Math.floor(Math.random()*survivors.length);
+                        if (survivors[survivor].isAlive()){
+                            valid = true;
+                        }
                     }
+
+                    zombie.attack(survivors[survivor]);
+                    if (!survivors[survivor].isAlive()){
+                        kills.add( ((Character) zombie).getName() + " killed " + ((Character) survivors[survivor]).getName() + "!");
+                    }
+                }else{
+                    System.out.println("All Survivors are dead! " + ((Character) zombie).getName() + " has nothing to attack!");
                 }
-                
-                zombie.attack(survivors[survivor]);
-                if (!survivors[survivor].isAlive()){
-                    kills.add( ((Character) zombie).getName() + " killed " + ((Character) survivors[survivor]).getName() + "!");
-                }
+            }else{
+                System.out.println(((Character) zombie).getName() + " is Dead, so they cannot attack");
             }
         }
 
