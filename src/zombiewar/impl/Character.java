@@ -1,7 +1,6 @@
 package zombiewar.impl;
 
 import zombiewar.intf.ICharacter;
-import zombiewar.intf.ISurvivor;
 
 public abstract class Character implements ICharacter{
 	
