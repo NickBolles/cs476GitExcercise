@@ -1,6 +1,7 @@
 package zombiewar;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 import zombiewar.impl.CharacterFactory;
 import zombiewar.impl.Character;
 import zombiewar.intf.ICharacter;
@@ -67,56 +68,85 @@ public class Main {
     System.out.println("We have " + survivors.length + " survivors trying to make it to safety.");
     System.out.println("But there are " + zombies.length + " zombies waiting for them.");
     
-    //TODO: the survivors attack first.  One character attack each zombie.
-    //      When all the survivors have done attacking, it's the zombies' 
-    //      turn to attack.  For each zombie that is still alive, attack
-    //      each suvivor that is still alive.  Repeat this cycle until
-    //      all the zombies are all dead or all the survivors are all dead.
-    
-    for(ISurvivor survivor: survivors){
-        System.out.println("-------------------------");
-        int zombie = (int) Math.floor(Math.random()*zombies.length);
-        survivor.attack(zombies[zombie]);
-        if (!zombies[zombie].isAlive()){
-            kills.add( ((Character) survivor).getName() + " killed " + ((Character) zombies[zombie]).getName() + "!");
+    boolean quit = false;
+    while(!quit){        
+        for(ISurvivor survivor: survivors){
+            System.out.println("-------------------------");
+            if (!allDead(zombies)){
+                boolean valid = false;
+                int zombie = -1;
+                //This is a pretty stupid way of doing it...basically just 
+                //randomly pokes at the array until it finds one that isnt dead,
+                //maybe we should just get the first one that is alive
+                while(!valid){
+                    zombie = (int) Math.floor(Math.random()*zombies.length);
+                    if (zombies[zombie].isAlive()){
+                        valid = true;
+                    }
+                }
+                survivor.attack(zombies[zombie]);
+                if (!zombies[zombie].isAlive()){
+                    kills.add( ((Character) survivor).getName() + " killed " + ((Character) zombies[zombie]).getName() + "!");
+                }
+            }
         }
-    }
-    for(IZombie zombie: zombies){
-        System.out.println("-------------------------");
-        int survivor = (int) Math.floor(Math.random()*survivors.length);
-        zombie.attack(survivors[survivor]);
-        if (!survivors[survivor].isAlive()){
-            kills.add( ((Character) zombie).getName() + " killed " + ((Character) survivors[survivor]).getName() + "!");
+        for(IZombie zombie: zombies){
+            System.out.println("-------------------------");
+            if (!allDead(zombies)){
+                boolean valid = false;
+                int survivor = -1;
+                //This is a pretty stupid way of doing it...basically just 
+                //randomly pokes at the array until it finds one that isnt dead,
+                //maybe we should just get the first one that is alive
+                while(!valid){
+                    survivor = (int) Math.floor(Math.random()*survivors.length);
+                    if (survivors[survivor].isAlive()){
+                        valid = true;
+                    }
+                }
+                
+                zombie.attack(survivors[survivor]);
+                if (!survivors[survivor].isAlive()){
+                    kills.add( ((Character) zombie).getName() + " killed " + ((Character) survivors[survivor]).getName() + "!");
+                }
+            }
         }
-    }
-    
+
+            System.out.println("==========================");
+            //Print the deaths this round
+            System.out.println("Deaths this round:");
+            for (String kill: kills){
+                System.out.println(kill);
+            }
+            System.out.println("----------------------------");
+
+        if (allDead(survivors)) {
+          System.out.println("None of the survivors made it.");
+        } else {
+          int count = 0;
+          for(int i=0; i<survivors.length; i++) {
+            if (survivors[i].isAlive()) count++;
+          }
+          System.out.println("It seems " + count + " have made it to safety.");
+        }
+        if (allDead(zombies)) {
+          System.out.println("None of the zombies survived.");
+        } else {
+          int count = 0;
+          for(int i=0; i<zombies.length; i++) {
+            if (zombies[i].isAlive()) count++;
+          }
+          System.out.println("It seems " + count + " zombies are still alive.");
+        }
         System.out.println("==========================");
-        //Print the deaths this round
-        System.out.println("Deaths this round:");
-        for (String kill: kills){
-            System.out.println(kill);
-        }
-        System.out.println("----------------------------");
         
-    if (allDead(survivors)) {
-      System.out.println("None of the survivors made it.");
-    } else {
-      int count = 0;
-      for(int i=0; i<survivors.length; i++) {
-        if (survivors[i].isAlive()) count++;
-      }
-      System.out.println("It seems " + count + " have made it to safety.");
+        System.out.println("Would you like to do another round?");
+        Scanner scanner = new Scanner(System.in);
+        String ans = scanner.next();
+        if (ans.equals("n") || ans.equals("N") ){
+            quit = true;
+        }
     }
-    if (allDead(zombies)) {
-      System.out.println("None of the zombies survived.");
-    } else {
-      int count = 0;
-      for(int i=0; i<zombies.length; i++) {
-        if (zombies[i].isAlive()) count++;
-      }
-      System.out.println("It seems " + count + " zombies are still alive.");
-    }
-    System.out.println("==========================");
   }
 
 }
