@@ -70,6 +70,7 @@ public class Main {
     
     boolean quit = false;
     while(!quit){        
+        kills.clear();
         for(ISurvivor survivor: survivors){
             System.out.println("-------------------------");
             if (!allDead(zombies)){
