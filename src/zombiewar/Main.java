@@ -139,12 +139,19 @@ public class Main {
           System.out.println("It seems " + count + " zombies are still alive.");
         }
         System.out.println("==========================");
-        
-        System.out.println("Would you like to do another round?");
-        Scanner scanner = new Scanner(System.in);
-        String ans = scanner.next();
-        if (ans.equals("n") || ans.equals("N") ){
+        if (allDead(survivors)){
+            System.out.println("All the survivors are dead. Zombies rule the world!");
             quit = true;
+        }else if (allDead(zombies)){
+            System.out.println("All the zombies are dead! Wahoo! ");
+            quit = true;
+        }else{
+            System.out.println("Would you like to do another round?");
+            Scanner scanner = new Scanner(System.in);
+            String ans = scanner.next();
+            if (ans.equals("n") || ans.equals("N") ){
+                quit = true;
+            }            
         }
     }
   }
