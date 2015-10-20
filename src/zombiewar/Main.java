@@ -64,12 +64,14 @@ public class Main {
     IZombie[] zombies = randomZombies();
     ISurvivor[] survivors = randomSurvivors();
     ArrayList<String> kills = new ArrayList<String>();
+    int roundCounter = 0;
 
     System.out.println("We have " + survivors.length + " survivors trying to make it to safety.");
     System.out.println("But there are " + zombies.length + " zombies waiting for them.");
 
     boolean quit = false;
-    while(!quit){        
+    while(!quit){       
+        roundCounter++;
         kills.clear();
         for(ISurvivor survivor: survivors){
             System.out.println("-------------------------");
@@ -128,8 +130,9 @@ public class Main {
         }
 
             System.out.println("==========================");
+            System.out.println("Round " + roundCounter + " results");
             //Print the deaths this round
-            System.out.println("Deaths this round:");
+            System.out.println("Deaths in round " + roundCounter + ":");
             for (String kill: kills){
                 System.out.println(kill);
             }
@@ -142,7 +145,7 @@ public class Main {
           for(int i=0; i<survivors.length; i++) {
             if (survivors[i].isAlive()) count++;
           }
-          System.out.println("It seems " + count + " have made it to safety.");
+          System.out.println(count + " have made it through " + roundCounter + " rounds!");
         }
         if (allDead(zombies)) {
           System.out.println("None of the zombies survived.");
@@ -151,14 +154,14 @@ public class Main {
           for(int i=0; i<zombies.length; i++) {
             if (zombies[i].isAlive()) count++;
           }
-          System.out.println("It seems " + count + " zombies are still alive.");
+          System.out.println(count + " zombies are still alive after " + roundCounter + " rounds!");
         }
         System.out.println("==========================");
         if (allDead(survivors)){
-            System.out.println("All the survivors are dead. Zombies rule the world!");
+            System.out.println("After " + roundCounter + "rounds, all the survivors are dead. Zombies rule the world!");
             quit = true;
         }else if (allDead(zombies)){
-            System.out.println("All the zombies are dead! Wahoo! ");
+            System.out.println("After " + roundCounter + "rounds, All the zombies are dead! Wahoo! ");
             quit = true;
         }else{
             System.out.println("Would you like to do another round?");
